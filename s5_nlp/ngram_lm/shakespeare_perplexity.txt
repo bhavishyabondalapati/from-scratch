@@ -1,0 +1,7 @@
+vocab 5632 words (min count 2), train 25k lines, test 3k lines
+1-gram add_k: 349.4
+1-gram kneser_ney: 347.2
+2-gram add_k: 893.5
+2-gram kneser_ney: 186.3
+3-gram add_k: 2403.2
+3-gram kneser_ney: 182.8
