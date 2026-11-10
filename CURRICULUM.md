@@ -19,7 +19,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/lfu_cache` — LFU cache
 - [x] `s1_algorithms/heap` — heap from scratch, top-k, merge k sorted, median of stream
 - [x] `s1_algorithms/trees` — traversals (recursive + iterative), BST ops, LCA, serialize/deserialize
-- [ ] `s1_algorithms/trie` — trie
+- [x] `s1_algorithms/trie` — trie
 - [ ] `s1_algorithms/segment_tree` — segment tree
 - [ ] `s1_algorithms/fenwick_tree` — Fenwick (binary indexed) tree
 - [ ] `s1_algorithms/union_find` — union-find with rank + path compression
