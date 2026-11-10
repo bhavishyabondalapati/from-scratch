@@ -100,7 +100,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 - [x] `s5_nlp/gpt` — decoder-only transformer on tiny-shakespeare, KV cache, sampling
 - [x] `s5_nlp/bert_classifier` — tiny BERT-style encoder for sentiment
 - [x] `s5_nlp/lora` — LoRA by hand on a linear layer, applied to the tiny GPT
-- [ ] `s5_nlp/bm25` — BM25 from scratch
+- [x] `s5_nlp/bm25` — BM25 from scratch
 - [ ] `s5_nlp/dense_retrieval` — dense retrieval, vector index (brute force + IVF)
 - [ ] `s5_nlp/rag` — minimal RAG loop with an offline extractive answerer
 - [x] `s5_nlp/eval_metrics` — BLEU, ROUGE-L, exact match, recall@k, MRR, NDCG
