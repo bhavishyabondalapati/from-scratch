@@ -56,7 +56,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [ ] `s3_classical_ml/decision_tree` — CART with gini + entropy
 - [ ] `s3_classical_ml/random_forest` — random forest
 - [ ] `s3_classical_ml/gradient_boosting` — regression + classification
-- [ ] `s3_classical_ml/adaboost` — AdaBoost
+- [x] `s3_classical_ml/adaboost` — AdaBoost
 - [ ] `s3_classical_ml/svm` — SVM (subgradient + SMO with kernels)
 - [ ] `s3_classical_ml/kmeans` — k-means and k-means++
 - [ ] `s3_classical_ml/gmm` — Gaussian mixture model with EM
