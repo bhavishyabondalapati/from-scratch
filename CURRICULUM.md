@@ -18,7 +18,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/lru_cache` — LRU cache
 - [x] `s1_algorithms/lfu_cache` — LFU cache
 - [x] `s1_algorithms/heap` — heap from scratch, top-k, merge k sorted, median of stream
-- [ ] `s1_algorithms/trees` — traversals (recursive + iterative), BST ops, LCA, serialize/deserialize
+- [x] `s1_algorithms/trees` — traversals (recursive + iterative), BST ops, LCA, serialize/deserialize
 - [ ] `s1_algorithms/trie` — trie
 - [ ] `s1_algorithms/segment_tree` — segment tree
 - [ ] `s1_algorithms/fenwick_tree` — Fenwick (binary indexed) tree
