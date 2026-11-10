@@ -85,7 +85,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 - [x] `s4_deep_learning/vae` — variational autoencoder
 - [x] `s4_deep_learning/gan` — small GAN on 2D toy data
 - [x] `s4_deep_learning/unet` — U-Net on a synthetic segmentation task
-- [ ] `s4_deep_learning/siamese` — Siamese network with contrastive loss
+- [x] `s4_deep_learning/siamese` — Siamese network with contrastive loss
 
 ## Section 5 - NLP (`s5_nlp/`)
 
