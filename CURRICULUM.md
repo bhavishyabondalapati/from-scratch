@@ -74,7 +74,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 
 - [x] `s4_deep_learning/autograd_scalar` — scalar autograd engine (micrograd-style)
 - [x] `s4_deep_learning/autograd_tensor` — tensor autograd engine in NumPy
-- [ ] `s4_deep_learning/mlp` — MLP with backprop, activations, Xavier/He init
+- [x] `s4_deep_learning/mlp` — MLP with backprop, activations, Xavier/He init
 - [ ] `s4_deep_learning/regularization` — dropout, weight decay, LR schedules
 - [ ] `s4_deep_learning/normalization` — batch norm, layer norm
 - [ ] `s4_deep_learning/cnn` — conv2d forward/backward (im2col), pooling, small CNN on digits
