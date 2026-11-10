@@ -26,7 +26,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/graph_traversal` — BFS, DFS, topological sort (Kahn + DFS), bipartite check
 - [x] `s1_algorithms/shortest_paths` — Dijkstra, Bellman-Ford, Floyd-Warshall
 - [x] `s1_algorithms/minimum_spanning_tree` — Prim, Kruskal
-- [ ] `s1_algorithms/tarjan_scc` — Tarjan strongly connected components
+- [x] `s1_algorithms/tarjan_scc` — Tarjan strongly connected components
 - [ ] `s1_algorithms/backtracking` — subsets, permutations, combinations, N-Queens, sudoku
 - [ ] `s1_algorithms/dp_1d_grid` — dynamic programming: 1D and 2D grid
 - [ ] `s1_algorithms/dp_knapsack` — knapsack (0/1 + unbounded)

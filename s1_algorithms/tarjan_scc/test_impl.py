@@ -52,6 +52,12 @@ def test_components_come_out_in_reverse_topological_order():
         assert all(comp_of[u] >= comp_of[v] for u in range(len(graph)) for v in graph[u])
 
 
+def n_components(n, es):
+    rows, cols = [e[0] for e in es], [e[1] for e in es]
+    matrix = csr_matrix(([1] * len(es), (rows, cols)), shape=(n, n))
+    return connected_components(matrix, directed=False)[0]
+
+
 def test_bridges_against_brute_force():
     rnd = random.Random(2)
     for _ in range(200):
@@ -61,14 +67,8 @@ def test_bridges_against_brute_force():
         )
         edges = [(a, b) for a, b in edges if a != b]
 
-        def n_components(es):
-            rows, cols = [e[0] for e in es], [e[1] for e in es]
-            return connected_components(
-                csr_matrix(([1] * len(es), (rows, cols)), shape=(n, n)), directed=False
-            )[0]
-
-        base = n_components(edges)
-        expected = sorted(e for e in edges if n_components([x for x in edges if x != e]) > base)
+        base = n_components(n, edges)
+        expected = sorted(e for e in edges if n_components(n, [x for x in edges if x != e]) > base)
         assert sorted(find_bridges(n, edges)) == expected
 
 
