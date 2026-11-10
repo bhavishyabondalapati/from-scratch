@@ -108,7 +108,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 ## Section 6 - Reinforcement learning (`s6_rl/`)
 
 - [x] `s6_rl/bandits` — epsilon-greedy, UCB, Thompson sampling
-- [ ] `s6_rl/dynamic_programming` — value iteration, policy iteration
+- [x] `s6_rl/dynamic_programming` — value iteration, policy iteration
 - [ ] `s6_rl/td_learning` — Q-learning, SARSA on a gridworld
 
 ## Finish
