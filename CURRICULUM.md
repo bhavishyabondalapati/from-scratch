@@ -65,7 +65,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s3_classical_ml/pca` — PCA as a fit/transform model
 - [x] `s3_classical_ml/tsne` — t-SNE (small-scale)
 - [x] `s3_classical_ml/model_selection` — train/val/test split, k-fold CV, grid search
-- [ ] `s3_classical_ml/metrics` — confusion matrix, precision/recall/F1, ROC-AUC, PR-AUC, calibration
+- [x] `s3_classical_ml/metrics` — confusion matrix, precision/recall/F1, ROC-AUC, PR-AUC, calibration
 - [ ] `s3_classical_ml/bias_variance` — bias-variance demo, regularization demo
 
 ## Section 4 - Deep learning (`s4_deep_learning/`)
