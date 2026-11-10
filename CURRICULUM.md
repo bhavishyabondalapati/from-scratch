@@ -92,7 +92,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 - [x] `s5_nlp/tokenization` — whitespace/regex, BPE from scratch, WordPiece overview
 - [x] `s5_nlp/bow_tfidf` — bag-of-words, TF-IDF
 - [x] `s5_nlp/ngram_lm` — n-gram language model with smoothing, perplexity
-- [ ] `s5_nlp/word2vec` — skip-gram with negative sampling, cosine similarity + analogy test
+- [x] `s5_nlp/word2vec` — skip-gram with negative sampling, cosine similarity + analogy test
 - [ ] `s5_nlp/glove` — GloVe (small)
 - [ ] `s5_nlp/attention` — scaled dot-product + multi-head attention
 - [ ] `s5_nlp/positional_encoding` — sinusoidal + RoPE
