@@ -16,7 +16,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/queue_deque` — queue, deque, monotonic queue
 - [x] `s1_algorithms/linked_list` — linked list operations
 - [x] `s1_algorithms/lru_cache` — LRU cache
-- [ ] `s1_algorithms/lfu_cache` — LFU cache
+- [x] `s1_algorithms/lfu_cache` — LFU cache
 - [ ] `s1_algorithms/heap` — heap from scratch, top-k, merge k sorted, median of stream
 - [ ] `s1_algorithms/trees` — traversals (recursive + iterative), BST ops, LCA, serialize/deserialize
 - [ ] `s1_algorithms/trie` — trie
