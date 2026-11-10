@@ -73,7 +73,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 NumPy only until the autograd engines are built; PyTorch allowed from `resnet_block` on.
 
 - [x] `s4_deep_learning/autograd_scalar` — scalar autograd engine (micrograd-style)
-- [ ] `s4_deep_learning/autograd_tensor` — tensor autograd engine in NumPy
+- [x] `s4_deep_learning/autograd_tensor` — tensor autograd engine in NumPy
 - [ ] `s4_deep_learning/mlp` — MLP with backprop, activations, Xavier/He init
 - [ ] `s4_deep_learning/regularization` — dropout, weight decay, LR schedules
 - [ ] `s4_deep_learning/normalization` — batch norm, layer norm
