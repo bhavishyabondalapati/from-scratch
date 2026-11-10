@@ -1,2 +1,2 @@
-held-out interview questions: 410, passages: 412
-MRR@10 dense (trained) 0.392, dense (untrained) 0.289, BM25 0.690
+held-out interview questions: 415, passages: 417
+MRR@10 dense (trained) 0.380, dense (untrained) 0.254, BM25 0.687
