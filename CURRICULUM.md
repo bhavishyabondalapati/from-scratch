@@ -21,7 +21,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/trees` — traversals (recursive + iterative), BST ops, LCA, serialize/deserialize
 - [x] `s1_algorithms/trie` — trie
 - [x] `s1_algorithms/segment_tree` — segment tree
-- [ ] `s1_algorithms/fenwick_tree` — Fenwick (binary indexed) tree
+- [x] `s1_algorithms/fenwick_tree` — Fenwick (binary indexed) tree
 - [ ] `s1_algorithms/union_find` — union-find with rank + path compression
 - [ ] `s1_algorithms/graph_traversal` — BFS, DFS, topological sort (Kahn + DFS), bipartite check
 - [ ] `s1_algorithms/shortest_paths` — Dijkstra, Bellman-Ford, Floyd-Warshall
