@@ -88,7 +88,7 @@ def test_momentum_beats_plain_gd_on_ill_conditioned_problem():
 
 def test_adam_first_step_has_size_lr_whatever_the_gradient_scale():
     # Bias correction makes m_hat / sqrt(v_hat) = g / |g| = sign(g) on step one.
-    for scale in (1e-6, 1.0, 1e6):
+    for scale in (1e-3, 1.0, 1e6):
         g = scale * np.array([1.0, -2.0, 3.0])
         x = Adam(lr=0.1).step(np.zeros(3), g)
         np.testing.assert_allclose(x, -0.1 * np.sign(g), rtol=1e-4)

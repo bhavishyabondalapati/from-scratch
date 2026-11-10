@@ -24,7 +24,8 @@ def logsumexp(z: np.ndarray, axis: int = -1, keepdims: bool = False) -> np.ndarr
     z = np.asarray(z, dtype=float)
     m = np.max(z, axis=axis, keepdims=True)
     m = np.where(np.isfinite(m), m, 0.0)  # all -inf row: avoid (-inf) - (-inf) = nan
-    out = m + np.log(np.sum(np.exp(z - m), axis=axis, keepdims=True))
+    with np.errstate(divide="ignore"):  # log(0) = -inf is the right answer for an all -inf row
+        out = m + np.log(np.sum(np.exp(z - m), axis=axis, keepdims=True))
     return out if keepdims else np.squeeze(out, axis=axis)
 
 
