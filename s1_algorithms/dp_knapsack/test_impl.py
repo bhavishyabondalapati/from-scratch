@@ -1,5 +1,5 @@
 import random
-from functools import lru_cache
+from functools import cache
 from itertools import combinations, product
 
 from .impl import (
@@ -44,7 +44,7 @@ def test_knapsack_unbounded_against_recursive_reference():
         weights, values = random_items(rnd, max_n=5)
         capacity = rnd.randint(0, 30)
 
-        @lru_cache(maxsize=None)
+        @cache
         def best(c, items=tuple(zip(weights, values))):
             return max((v + best(c - w) for w, v in items if w <= c), default=0)
 
@@ -71,11 +71,11 @@ def test_coin_change_counts_against_brute_force():
         coins = rnd.sample(range(1, 8), rnd.randint(1, 3))
         amount = rnd.randint(0, 14)
 
-        @lru_cache(maxsize=None)
+        @cache
         def ordered(a, coins=tuple(coins)):
             return 1 if a == 0 else sum(ordered(a - c) for c in coins if c <= a)
 
-        @lru_cache(maxsize=None)
+        @cache
         def unordered(a, i, coins=tuple(coins)):
             # Combinations using only coins[i:], so each multiset is counted once.
             if a == 0:
