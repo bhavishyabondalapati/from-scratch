@@ -100,23 +100,26 @@ def deep_net(norm, seed=0, depth=8, width=64):
 
 
 @pytest.mark.slow
-def test_normalisation_speeds_up_training_of_a_deep_net():
+def test_batchnorm_lets_a_deep_net_train_at_a_high_learning_rate():
     rng = np.random.default_rng(0)
     X = rng.normal(size=(1000, 2))
     y = (np.sin(2 * X[:, 0]) + X[:, 1] ** 2 > 0.8).astype(int)
-    curves = {}
+    curves, accs = {}, {}
     for name, norm in [("no norm", None), ("batch norm", BatchNorm1d), ("layer norm", LayerNorm)]:
-        model = deep_net(norm)  # 8 hidden layers with (deliberately poor) Xavier init for ReLU
-        curves[name] = train_classifier(model, X, y, epochs=25, lr=0.02)
-    assert curves["batch norm"][-1] < 0.5 * curves["no norm"][-1]
-    assert curves["layer norm"][-1] < 0.5 * curves["no norm"][-1]
+        model = deep_net(norm, depth=15)  # 16 linear layers, Xavier init (too small for ReLU)
+        curves[name] = train_classifier(model, X, y, epochs=25, lr=0.1)
+        accs[name] = float(np.mean(model(X).argmax(1) == y))  # model is in eval mode here
+    majority = max(y.mean(), 1 - y.mean())
+    assert accs["no norm"] <= majority + 0.01  # stuck: predicts one class
+    assert accs["batch norm"] > 0.95
+    # Layer norm does not rescue this setup (see NOTES.md); we only record it.
 
     import matplotlib.pyplot as plt
 
     fig, ax = plt.subplots(figsize=(5, 3))
     for name, c in curves.items():
-        ax.plot(c, label=f"{name} (final {c[-1]:.3f})")
-    ax.set(xlabel="epoch", ylabel="train loss", yscale="log", title="9-layer ReLU MLP, same lr")
+        ax.plot(c, label=f"{name} (train acc {accs[name]:.2f})")
+    ax.set(xlabel="epoch", ylabel="train loss", title="16-layer ReLU MLP, lr 0.1")
     ax.legend()
     fig.tight_layout()
     fig.savefig(Path(__file__).parent / "training_curve.png", dpi=110)

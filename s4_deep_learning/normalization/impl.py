@@ -7,7 +7,9 @@ import numpy as np
 from s4_deep_learning.mlp.impl import Layer
 
 
-def _normalise_backward(grad_xhat: np.ndarray, xhat: np.ndarray, inv_std: np.ndarray, axis) -> np.ndarray:
+def _normalise_backward(
+    grad_xhat: np.ndarray, xhat: np.ndarray, inv_std: np.ndarray, axis
+) -> np.ndarray:
     """Backward through xhat = (x - mean) / sqrt(var + eps), where mean and var are
     taken over `axis`. Because every x affects the mean and variance too, the
     gradient has three parts; simplified, it is
@@ -40,7 +42,9 @@ class BatchNorm1d(Layer):
             n = len(x)
             # PyTorch convention: running variance uses the unbiased (n - 1) estimate.
             self.running_mean = (1 - self.momentum) * self.running_mean + self.momentum * mean
-            self.running_var = (1 - self.momentum) * self.running_var + self.momentum * var * n / max(n - 1, 1)
+            self.running_var = (
+                1 - self.momentum
+            ) * self.running_var + self.momentum * var * n / max(n - 1, 1)
         else:
             mean, var = self.running_mean, self.running_var
         self.inv_std = 1.0 / np.sqrt(var + self.eps)
@@ -76,4 +80,6 @@ class LayerNorm(Layer):
         batch_axes = tuple(range(grad_out.ndim - 1))
         self.grads["gamma"] = (grad_out * self.xhat).sum(axis=batch_axes)
         self.grads["beta"] = grad_out.sum(axis=batch_axes)
-        return _normalise_backward(grad_out * self.params["gamma"], self.xhat, self.inv_std, axis=-1)
+        return _normalise_backward(
+            grad_out * self.params["gamma"], self.xhat, self.inv_std, axis=-1
+        )
