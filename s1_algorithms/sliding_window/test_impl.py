@@ -85,7 +85,5 @@ def test_find_anagram_starts():
     for _ in range(300):
         s = "".join(rnd.choice("ab") for _ in range(rnd.randint(0, 12)))
         p = "".join(rnd.choice("ab") for _ in range(rnd.randint(1, 4)))
-        expected = [
-            i for i in range(len(s) - len(p) + 1) if sorted(s[i : i + len(p)]) == sorted(p)
-        ]
+        expected = [i for i in range(len(s) - len(p) + 1) if sorted(s[i : i + len(p)]) == sorted(p)]
         assert find_anagram_starts(s, p) == expected

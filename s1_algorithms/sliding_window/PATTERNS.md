@@ -29,7 +29,8 @@ def fewest_days(calories, goal):
             left += 1
     return 0 if best > len(calories) else best
 
-fewest_days([200, 300, 100, 400, 350], 700)   # 2  (400 + 350)
+
+fewest_days([200, 300, 100, 400, 350], 700)  # 2  (400 + 350)
 ```
 
 **Complexity.** Each index enters and leaves the window once: O(n) time, O(1) space.
