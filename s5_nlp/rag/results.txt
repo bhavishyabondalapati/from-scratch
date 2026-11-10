@@ -1,0 +1,36 @@
+415 held-out interview questions
+cited passage from the correct topic: 0.573
+ROUGE-L F vs reference answer: RAG 0.098, first sentence of top passage 0.055, random sentence 0.011
+token F1: 0.103
+
+Examples:
+
+Q: Why is hash map lookup O(1) on average but O(n) worst case?
+A: O(n) worst case (large constant)
+[source: s1_algorithms/quickselect#complexity]
+(reference: With a good hash and bounded load factor each bucket holds O(1) keys on average; adversarial or poor hashing can put all keys in one bucket.)
+
+Q: Implement a queue with two stacks; what is the complexity?
+A: Two-stack queue push / pop
+[source: s1_algorithms/queue_deque#complexity]
+(reference: Amortized O(1): each element crosses from inbox to outbox exactly once.)
+
+Q: What do the eigenvalues and eigenvectors of the covariance matrix represent?
+A: Eigenvectors `v` = principal directions, eigenvalues `λ` = variance along them.
+[source: s2_math/pca#core-math]
+(reference: Directions of maximal variance and the variance along each.)
+
+Q: What is the "naive" assumption?
+A: Naive: O(n³) time, O(n²) memory (the version here).
+[source: s3_classical_ml/hierarchical_clustering#complexity]
+(reference: Features are conditionally independent given the class.)
+
+Q: Why do vanilla RNNs suffer from vanishing gradients?
+A: Sigmoid/tanh in deep nets: derivatives ≤ 0.25 / ≤ 1 multiply up → vanishing gradients.
+[source: s4_deep_learning/mlp#common-pitfalls]
+(reference: BPTT multiplies T Jacobians whose norms are typically < 1, so the product decays exponentially.)
+
+Q: What problem does attention solve in seq2seq?
+A: The core of transformers (`gpt`, `bert_classifier`), cross-attention in seq2seq, vision transformers.
+[source: s5_nlp/attention#when-to-use-vs-alternatives]
+(reference: The fixed-size bottleneck vector: the decoder can look back at all encoder states.)
