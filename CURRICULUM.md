@@ -103,7 +103,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 - [ ] `s5_nlp/bm25` — BM25 from scratch
 - [ ] `s5_nlp/dense_retrieval` — dense retrieval, vector index (brute force + IVF)
 - [ ] `s5_nlp/rag` — minimal RAG loop with an offline extractive answerer
-- [ ] `s5_nlp/eval_metrics` — BLEU, ROUGE-L, exact match, recall@k, MRR, NDCG
+- [x] `s5_nlp/eval_metrics` — BLEU, ROUGE-L, exact match, recall@k, MRR, NDCG
 
 ## Section 6 - Reinforcement learning (`s6_rl/`)
 

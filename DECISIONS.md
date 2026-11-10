@@ -39,3 +39,17 @@ Choices made while building the repo, and why.
 - Ruff rules `E, F, I, UP, B`. `E741` is ignored because math code naturally uses names
   like `l` and `I`; `E501` is ignored because the formatter handles code width and long
   comment lines are fine.
+
+## Ordering
+
+- `s5_nlp/eval_metrics` was built before `bm25`, `dense_retrieval` and `rag` (it is listed last in
+  the curriculum) because those three topics use its recall@k / MRR / exact-match functions.
+
+## Datasets chosen to keep everything offline
+
+- Analogies (`word2vec`, `glove`): a synthetic corpus with planted attributes, so the right answers
+  are known exactly.
+- Sentiment (`bert_classifier`): generated reviews whose labels depend on negation and "but"
+  clauses, so word order matters and bag-of-words is a meaningful baseline.
+- Retrieval and RAG: the repository's own NOTES.md files, split into sections.
+- tiny-shakespeare is the only download (cached in the gitignored `data/` folder).
