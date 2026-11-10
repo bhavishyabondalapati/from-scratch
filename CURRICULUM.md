@@ -60,7 +60,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s3_classical_ml/svm` — SVM (subgradient + SMO with kernels)
 - [x] `s3_classical_ml/kmeans` — k-means and k-means++
 - [x] `s3_classical_ml/gmm` — Gaussian mixture model with EM
-- [ ] `s3_classical_ml/dbscan` — DBSCAN
+- [x] `s3_classical_ml/dbscan` — DBSCAN
 - [ ] `s3_classical_ml/hierarchical_clustering` — agglomerative clustering
 - [ ] `s3_classical_ml/pca` — PCA as a fit/transform model
 - [ ] `s3_classical_ml/tsne` — t-SNE (small-scale)
