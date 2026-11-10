@@ -1,5 +1,5 @@
 import random
-from functools import lru_cache
+from functools import cache
 from itertools import combinations
 
 from .impl import (
@@ -51,7 +51,7 @@ def test_lis_fast_matches_quadratic_on_larger_inputs():
 def test_lcs_against_recursive_reference():
     rnd = random.Random(2)
 
-    @lru_cache(maxsize=None)
+    @cache
     def ref(a, b):
         if not a or not b:
             return 0
@@ -90,7 +90,7 @@ def apply_ops(a, ops):
 def test_edit_distance_against_recursive_reference():
     rnd = random.Random(3)
 
-    @lru_cache(maxsize=None)
+    @cache
     def ref(a, b):
         if not a or not b:
             return len(a) + len(b)
@@ -121,10 +121,5 @@ def test_longest_palindromic_subsequence_against_brute_force():
     rnd = random.Random(5)
     for _ in range(200):
         s = "".join(rnd.choice("abc") for _ in range(rnd.randint(0, 10)))
-        brute = max(
-            k
-            for k in range(len(s) + 1)
-            for c in combinations(s, k)
-            if c == c[::-1]
-        )
+        brute = max(k for k in range(len(s) + 1) for c in combinations(s, k) if c == c[::-1])
         assert longest_palindromic_subsequence(s) == brute
