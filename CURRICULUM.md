@@ -79,7 +79,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 - [x] `s4_deep_learning/normalization` — batch norm, layer norm
 - [x] `s4_deep_learning/cnn` — conv2d forward/backward (im2col), pooling, small CNN on digits
 - [x] `s4_deep_learning/rnn_lstm_gru` — RNN, LSTM, GRU forward/backward
-- [ ] `s4_deep_learning/char_lm` — character-level language model
+- [x] `s4_deep_learning/char_lm` — character-level language model
 - [ ] `s4_deep_learning/resnet_block` — ResNet block (PyTorch)
 - [ ] `s4_deep_learning/autoencoder` — autoencoder
 - [ ] `s4_deep_learning/vae` — variational autoencoder
