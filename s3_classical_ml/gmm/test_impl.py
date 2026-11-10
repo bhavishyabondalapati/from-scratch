@@ -41,7 +41,9 @@ def test_recovers_true_parameters(rng):
 def test_matches_sklearn_on_iris():
     X = load_iris().data
     ours = GaussianMixture(3, tol=1e-10, max_iter=1000, n_init=10, random_state=0).fit(X)
-    ref = SkGMM(3, covariance_type="full", tol=1e-10, max_iter=1000, n_init=10, random_state=0).fit(X)
+    ref = SkGMM(3, covariance_type="full", tol=1e-10, max_iter=1000, n_init=10, random_state=0).fit(
+        X
+    )
     assert ours.score(X) == pytest.approx(ref.score(X), rel=1e-3)
     assert adjusted_rand_score(ref.predict(X), ours.predict(X)) > 0.95
 
