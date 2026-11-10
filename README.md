@@ -1,0 +1,227 @@
+# from-scratch
+
+Clean, readable, tested implementations of classic algorithms, machine learning, deep learning, NLP
+and a little reinforcement learning, written from first principles for understanding and interview
+preparation (not as a library). Every topic has an `impl.py`, tests that check **correctness** against
+reference libraries, finite differences or brute force, and a `NOTES.md` with the intuition, the math,
+complexity, pitfalls, when to use it, and interview questions.
+
+**637 tests** across 86 topics (621 fast + 16 slow training tests). Everything runs offline on a laptop
+except one 1 MB download (tiny-shakespeare), cached in `data/`.
+
+## Tools and libraries, and why
+
+| Library | Used for | Why |
+|---|---|---|
+| Python 3.11, standard library | Section 1 algorithms, tokenizers, n-grams, BM25 | Keeps the algorithms fully visible |
+| NumPy | All implementations up to and including the two autograd engines | Arrays and BLAS speed without hiding any maths |
+| PyTorch | Section 4 from `resnet_block` on, and the Section 5 neural models; reference checks in tests | Allowed only after building our own autograd; gives GPU (`mps`) training on Apple silicon |
+| scikit-learn, SciPy | **Tests only**, as reference implementations | Trusted results to compare against; sklearn toy datasets (iris, digits, …) |
+| matplotlib | Training-curve PNGs | Each deep-learning topic saves its curve |
+| pytest, ruff | Tests, lint and formatting | Standard, fast tooling |
+
+## Setup
+
+```bash
+conda create -n from-scratch python=3.11 -y
+conda activate from-scratch
+pip install -r requirements.txt   # versions are pinned
+```
+
+## How to run
+
+```bash
+make test-fast                         # everything except slow training tests (~35 seconds)
+make test                              # everything, including training runs (~10-15 minutes)
+make test-section N=3                  # one section (folders s3_*)
+make test-topic T=s3_classical_ml/svm  # one topic
+python -m pytest -q -m slow            # only the training tests (regenerate PNGs / metrics)
+make lint                              # ruff check + format check
+make format                            # auto-format
+```
+The GPT checkpoint is trained once (about 1.5 minutes on Apple `mps`) and cached in
+`data/gpt_char_shakespeare.pt`; the LoRA topic reuses it.
+
+## File structure
+
+```
+from-scratch/
+├── README.md            this file
+├── CURRICULUM.md        the checklist; a box is ticked when the topic's tests pass
+├── PROGRESS.md          where work stopped / how to resume
+├── DECISIONS.md         choices made while building the repo, and why
+├── requirements.txt     pinned dependencies
+├── pyproject.toml       pytest (markers, paths) and ruff configuration
+├── conftest.py          shared pytest setup (headless matplotlib, seeded rng fixture)
+├── Makefile             test / lint / format shortcuts
+├── data_utils.py        cached download of tiny-shakespeare into data/ (gitignored)
+├── scripts/done.sh      format + lint + test + tick the box + commit one topic
+├── .github/workflows/ci.yml   ruff + pytest (slow tests skipped) on every push
+├── s1_algorithms/  s2_math/  s3_classical_ml/  s4_deep_learning/  s5_nlp/  s6_rl/
+│   └── <topic>/
+│       ├── impl.py          the implementation (commented, type-hinted)
+│       ├── test_impl.py     correctness tests
+│       ├── NOTES.md         intuition, math, complexity, pitfalls, when to use, interview Q&A
+│       ├── PATTERNS.md      (Section 1 only) LeetCode problems for the pattern + a solved example
+│       └── *.png / *.txt    (some topics) training curves, samples, result tables
+├── s4_deep_learning/torch_utils.py   device selection (mps/cpu), digits tensors, curve plotting
+├── s5_nlp/corpus.py                  the repo's own NOTES.md files as a retrieval corpus
+└── s6_rl/gridworld.py                cliff-walking environment shared by the RL topics
+```
+
+## How it was built
+
+1. Wrote `CURRICULUM.md` (every topic as a checkbox) and the scaffolding, and committed them.
+2. Built topics in order. For each: `impl.py`, then tests, then `NOTES.md`, then `scripts/done.sh`
+   (format, lint, test, tick, commit). One commit per topic.
+3. Ran each section's full test suite at the end of the section; checkpointed in `PROGRESS.md`.
+4. Section 4 built a scalar and then a tensor autograd engine in NumPy before any PyTorch was used.
+5. Where a result didn't match expectations, the tests record what actually happens and the notes
+   explain it (e.g. GloVe instability, dense retrieval losing to BM25, layer norm not rescuing a
+   badly initialised deep MLP). See DECISIONS.md.
+6. Added the Makefile, CI workflow and this README.
+
+## How correctness is tested
+
+- **Reference comparison:** scikit-learn (regression, trees, SVM, clustering, metrics…), SciPy (shortest
+  paths, MST, SCC), PyTorch (optimizers, conv, RNN/LSTM/GRU, attention, batch/layer norm) within tolerance.
+- **Gradient checks:** every hand-written backward pass is checked with central finite differences
+  (`s2_math/gradient_check`) or `torch.autograd.gradcheck`.
+- **Property tests:** data structures run thousands of random operations against Python built-ins
+  (dict, heapq, deque, OrderedDict, set, sorted, bisect) or brute force.
+- **Baselines:** every model must beat a trivial baseline (majority class, mean prediction, unigram LM,
+  random ranking, random policy).
+
+## Key concepts to be able to explain
+
+- **Complexity and invariants:** why two pointers, sliding windows and monotonic stacks are O(n);
+  amortised analysis; heap, union-find and segment-tree costs; DP state + recurrence + order.
+- **Optimisation:** gradient descent and its variants, learning-rate stability (`η < 2/L`), Adam's
+  bias correction, numerical stability (log-sum-exp).
+- **Generalisation:** bias-variance, regularisation (L1 vs L2, dropout, weight decay), cross-validation
+  and leakage, choosing metrics (precision/recall, ROC vs PR, calibration).
+- **Models:** linear/logistic regression as MLE, trees and ensembles (bagging vs boosting), SVM margins
+  and the kernel trick, k-means/GMM/EM, PCA via SVD.
+- **Deep learning:** backprop as the chain rule over a graph, initialisation, normalisation, residual
+  connections, convolutions (im2col), vanishing gradients in RNNs and how LSTMs fix them, VAEs, GANs.
+- **NLP:** subword tokenization, attention and why it is scaled, positional encodings (RoPE), the
+  transformer block, KV caching and sampling, BERT vs GPT, LoRA, BM25 vs dense retrieval, RAG, evaluation.
+- **RL:** exploration vs exploitation, Bellman equations, value vs policy iteration, on- vs off-policy TD.
+
+## Table of contents
+
+### Section 1 - Algorithms & data structures (`s1_algorithms/`)
+
+| Topic | What's inside | Tests | Status |
+|---|---|---|---|
+| [`arrays_hashing`](s1_algorithms/arrays_hashing/) | arrays & hashing | 7 | done |
+| [`two_pointers`](s1_algorithms/two_pointers/) | two pointers | 7 | done |
+| [`sliding_window`](s1_algorithms/sliding_window/) | sliding window | 6 | done |
+| [`prefix_sums`](s1_algorithms/prefix_sums/) | prefix sums | 6 | done |
+| [`binary_search`](s1_algorithms/binary_search/) | binary search, incl. on the answer space | 6 | done |
+| [`stack_monotonic`](s1_algorithms/stack_monotonic/) | stack & monotonic stack | 5 | done |
+| [`queue_deque`](s1_algorithms/queue_deque/) | queue, deque, monotonic queue | 4 | done |
+| [`linked_list`](s1_algorithms/linked_list/) | linked list operations | 6 | done |
+| [`lru_cache`](s1_algorithms/lru_cache/) | LRU cache | 7 | done |
+| [`lfu_cache`](s1_algorithms/lfu_cache/) | LFU cache | 6 | done |
+| [`heap`](s1_algorithms/heap/) | heap from scratch, top-k, merge k sorted, median of stream | 6 | done |
+| [`trees`](s1_algorithms/trees/) | traversals (recursive + iterative), BST ops, LCA, serialize/deserialize | 7 | done |
+| [`trie`](s1_algorithms/trie/) | trie | 4 | done |
+| [`segment_tree`](s1_algorithms/segment_tree/) | segment tree | 6 | done |
+| [`fenwick_tree`](s1_algorithms/fenwick_tree/) | Fenwick (binary indexed) tree | 5 | done |
+| [`union_find`](s1_algorithms/union_find/) | union-find with rank + path compression | 5 | done |
+| [`graph_traversal`](s1_algorithms/graph_traversal/) | BFS, DFS, topological sort (Kahn + DFS), bipartite check | 7 | done |
+| [`shortest_paths`](s1_algorithms/shortest_paths/) | Dijkstra, Bellman-Ford, Floyd-Warshall | 5 | done |
+| [`minimum_spanning_tree`](s1_algorithms/minimum_spanning_tree/) | Prim, Kruskal | 4 | done |
+| [`tarjan_scc`](s1_algorithms/tarjan_scc/) | Tarjan strongly connected components | 5 | done |
+| [`backtracking`](s1_algorithms/backtracking/) | subsets, permutations, combinations, N-Queens, sudoku | 8 | done |
+| [`dp_1d_grid`](s1_algorithms/dp_1d_grid/) | dynamic programming: 1D and 2D grid | 10 | done |
+| [`dp_knapsack`](s1_algorithms/dp_knapsack/) | knapsack (0/1 + unbounded) | 5 | done |
+| [`dp_sequences`](s1_algorithms/dp_sequences/) | LIS (O(n log n)), LCS, edit distance | 6 | done |
+| [`dp_interval_bitmask`](s1_algorithms/dp_interval_bitmask/) | interval DP, bitmask DP | 7 | done |
+| [`greedy_intervals`](s1_algorithms/greedy_intervals/) | greedy + intervals | 8 | done |
+| [`sorting`](s1_algorithms/sorting/) | quick, merge, heap, counting, radix sort | 18 | done |
+| [`quickselect`](s1_algorithms/quickselect/) | quickselect | 6 | done |
+| [`string_matching`](s1_algorithms/string_matching/) | KMP, Rabin-Karp | 7 | done |
+
+### Section 2 - Math foundations (`s2_math/`)
+
+| Topic | What's inside | Tests | Status |
+|---|---|---|---|
+| [`linalg`](s2_math/linalg/) | vector/matrix operations | 9 | done |
+| [`gradient_descent`](s2_math/gradient_descent/) | batch GD, SGD, momentum, RMSProp, Adam | 12 | done |
+| [`gradient_check`](s2_math/gradient_check/) | numerical gradient checking | 8 | done |
+| [`softmax_logsumexp`](s2_math/softmax_logsumexp/) | softmax / log-sum-exp stability | 7 | done |
+| [`pca`](s2_math/pca/) | PCA via SVD and via eigendecomposition | 7 | done |
+| [`probability`](s2_math/probability/) | MLE and Bayes' rule | 9 | done |
+
+### Section 3 - Classical ML (`s3_classical_ml/`)
+
+| Topic | What's inside | Tests | Status |
+|---|---|---|---|
+| [`linear_regression`](s3_classical_ml/linear_regression/) | closed form + gradient descent | 8 | done |
+| [`ridge_lasso`](s3_classical_ml/ridge_lasso/) | ridge, lasso (coordinate descent) | 13 | done |
+| [`logistic_regression`](s3_classical_ml/logistic_regression/) | binary + multinomial | 7 | done |
+| [`knn`](s3_classical_ml/knn/) | k-nearest neighbours | 14 | done |
+| [`naive_bayes`](s3_classical_ml/naive_bayes/) | Gaussian + multinomial | 10 | done |
+| [`decision_tree`](s3_classical_ml/decision_tree/) | CART with gini + entropy | 10 | done |
+| [`random_forest`](s3_classical_ml/random_forest/) | random forest | 8 | done |
+| [`gradient_boosting`](s3_classical_ml/gradient_boosting/) | regression + classification | 8 | done |
+| [`adaboost`](s3_classical_ml/adaboost/) | AdaBoost | 6 | done |
+| [`svm`](s3_classical_ml/svm/) | SVM (subgradient + SMO with kernels) | 18 | done |
+| [`kmeans`](s3_classical_ml/kmeans/) | k-means and k-means++ | 6 | done |
+| [`gmm`](s3_classical_ml/gmm/) | Gaussian mixture model with EM | 6 | done |
+| [`dbscan`](s3_classical_ml/dbscan/) | DBSCAN | 7 | done |
+| [`hierarchical_clustering`](s3_classical_ml/hierarchical_clustering/) | agglomerative clustering | 19 | done |
+| [`pca`](s3_classical_ml/pca/) | PCA as a fit/transform model | 4 | done |
+| [`tsne`](s3_classical_ml/tsne/) | t-SNE (small-scale) | 5 | done |
+| [`model_selection`](s3_classical_ml/model_selection/) | train/val/test split, k-fold CV, grid search | 8 | done |
+| [`metrics`](s3_classical_ml/metrics/) | confusion matrix, precision/recall/F1, ROC-AUC, PR-AUC, calibration | 6 | done |
+| [`bias_variance`](s3_classical_ml/bias_variance/) | bias-variance demo, regularization demo | 5 | done |
+
+### Section 4 - Deep learning (`s4_deep_learning/`)
+
+| Topic | What's inside | Tests | Status |
+|---|---|---|---|
+| [`autograd_scalar`](s4_deep_learning/autograd_scalar/) | scalar autograd engine (micrograd-style) | 12 | done |
+| [`autograd_tensor`](s4_deep_learning/autograd_tensor/) | tensor autograd engine in NumPy | 16 | done |
+| [`mlp`](s4_deep_learning/mlp/) | MLP with backprop, activations, Xavier/He init | 15 | done |
+| [`regularization`](s4_deep_learning/regularization/) | dropout, weight decay, LR schedules | 5 | done |
+| [`normalization`](s4_deep_learning/normalization/) | batch norm, layer norm | 6 | done |
+| [`cnn`](s4_deep_learning/cnn/) | conv2d forward/backward (im2col), pooling, small CNN on digits | 14 | done |
+| [`rnn_lstm_gru`](s4_deep_learning/rnn_lstm_gru/) | RNN, LSTM, GRU forward/backward | 8 | done |
+| [`char_lm`](s4_deep_learning/char_lm/) | character-level language model | 6 | done |
+| [`resnet_block`](s4_deep_learning/resnet_block/) | ResNet block (PyTorch) | 4 | done |
+| [`autoencoder`](s4_deep_learning/autoencoder/) | autoencoder | 5 | done |
+| [`vae`](s4_deep_learning/vae/) | variational autoencoder | 5 | done |
+| [`gan`](s4_deep_learning/gan/) | small GAN on 2D toy data | 4 | done |
+| [`unet`](s4_deep_learning/unet/) | U-Net on a synthetic segmentation task | 3 | done |
+| [`siamese`](s4_deep_learning/siamese/) | Siamese network with contrastive loss | 4 | done |
+
+### Section 5 - NLP (`s5_nlp/`)
+
+| Topic | What's inside | Tests | Status |
+|---|---|---|---|
+| [`tokenization`](s5_nlp/tokenization/) | whitespace/regex, BPE from scratch, WordPiece overview | 8 | done |
+| [`bow_tfidf`](s5_nlp/bow_tfidf/) | bag-of-words, TF-IDF | 9 | done |
+| [`ngram_lm`](s5_nlp/ngram_lm/) | n-gram language model with smoothing, perplexity | 16 | done |
+| [`word2vec`](s5_nlp/word2vec/) | skip-gram with negative sampling, cosine similarity + analogy test | 5 | done |
+| [`glove`](s5_nlp/glove/) | GloVe (small) | 5 | done |
+| [`attention`](s5_nlp/attention/) | scaled dot-product + multi-head attention | 11 | done |
+| [`positional_encoding`](s5_nlp/positional_encoding/) | sinusoidal + RoPE | 7 | done |
+| [`seq2seq_attention`](s5_nlp/seq2seq_attention/) | seq2seq with Bahdanau attention | 5 | done |
+| [`gpt`](s5_nlp/gpt/) | decoder-only transformer on tiny-shakespeare, KV cache, sampling | 8 | done |
+| [`bert_classifier`](s5_nlp/bert_classifier/) | tiny BERT-style encoder for sentiment | 4 | done |
+| [`lora`](s5_nlp/lora/) | LoRA by hand on a linear layer, applied to the tiny GPT | 5 | done |
+| [`bm25`](s5_nlp/bm25/) | BM25 from scratch | 4 | done |
+| [`dense_retrieval`](s5_nlp/dense_retrieval/) | dense retrieval, vector index (brute force + IVF) | 4 | done |
+| [`rag`](s5_nlp/rag/) | minimal RAG loop with an offline extractive answerer | 4 | done |
+| [`eval_metrics`](s5_nlp/eval_metrics/) | BLEU, ROUGE-L, exact match, recall@k, MRR, NDCG | 6 | done |
+
+### Section 6 - Reinforcement learning (`s6_rl/`)
+
+| Topic | What's inside | Tests | Status |
+|---|---|---|---|
+| [`bandits`](s6_rl/bandits/) | epsilon-greedy, UCB, Thompson sampling | 7 | done |
+| [`dynamic_programming`](s6_rl/dynamic_programming/) | value iteration, policy iteration | 8 | done |
+| [`td_learning`](s6_rl/td_learning/) | Q-learning, SARSA on a gridworld | 5 | done |

@@ -1,7 +1,7 @@
-415 held-out interview questions
-cited passage from the correct topic: 0.573
-ROUGE-L F vs reference answer: RAG 0.098, first sentence of top passage 0.055, random sentence 0.011
-token F1: 0.103
+430 held-out interview questions
+cited passage from the correct topic: 0.577
+ROUGE-L F vs reference answer: RAG 0.099, first sentence of top passage 0.055, random sentence 0.012
+token F1: 0.104
 
 Examples:
 

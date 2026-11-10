@@ -113,6 +113,6 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 
 ## Finish
 
-- [ ] README.md with table of contents
-- [ ] Makefile (`make test`, `make test-section N`, `make lint`, `make format`)
-- [ ] GitHub Actions workflow (ruff + pytest, slow tests skipped)
+- [x] README.md with table of contents
+- [x] Makefile (`make test`, `make test-section N`, `make lint`, `make format`)
+- [x] GitHub Actions workflow (ruff + pytest, slow tests skipped)
