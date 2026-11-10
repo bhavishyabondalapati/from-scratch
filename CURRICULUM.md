@@ -62,7 +62,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s3_classical_ml/gmm` — Gaussian mixture model with EM
 - [x] `s3_classical_ml/dbscan` — DBSCAN
 - [x] `s3_classical_ml/hierarchical_clustering` — agglomerative clustering
-- [ ] `s3_classical_ml/pca` — PCA as a fit/transform model
+- [x] `s3_classical_ml/pca` — PCA as a fit/transform model
 - [ ] `s3_classical_ml/tsne` — t-SNE (small-scale)
 - [ ] `s3_classical_ml/model_selection` — train/val/test split, k-fold CV, grid search
 - [ ] `s3_classical_ml/metrics` — confusion matrix, precision/recall/F1, ROC-AUC, PR-AUC, calibration
