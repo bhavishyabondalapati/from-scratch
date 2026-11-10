@@ -1,5 +1,5 @@
 import random
-from functools import lru_cache
+from functools import cache
 from itertools import permutations
 
 from .impl import (
@@ -17,7 +17,7 @@ def test_matrix_chain_against_recursive_reference():
     rnd = random.Random(0)
 
     def ref(dims):
-        @lru_cache(maxsize=None)
+        @cache
         def go(i, j):
             if i == j:
                 return 0
@@ -55,7 +55,7 @@ def test_burst_balloons_against_brute_force():
 def test_min_palindrome_cuts_against_brute_force():
     rnd = random.Random(2)
 
-    @lru_cache(maxsize=None)
+    @cache
     def brute(s):
         if s == s[::-1]:
             return 0
@@ -72,7 +72,12 @@ def test_longest_palindromic_substring_against_brute_force():
     for _ in range(300):
         s = "".join(rnd.choice("abc") for _ in range(rnd.randint(0, 12)))
         best = max(
-            (j - i for i in range(len(s)) for j in range(i + 1, len(s) + 1) if s[i:j] == s[i:j][::-1]),
+            (
+                j - i
+                for i in range(len(s))
+                for j in range(i + 1, len(s) + 1)
+                if s[i:j] == s[i:j][::-1]
+            ),
             default=0,
         )
         got = longest_palindromic_substring(s)
@@ -83,7 +88,9 @@ def test_tsp_against_all_permutations():
     rnd = random.Random(4)
     for _ in range(60):
         n = rnd.randint(1, 7)
-        dist = [[0 if i == j else rnd.randint(1, 30) for j in range(n)] for i in range(n)]  # asymmetric
+        dist = [
+            [0 if i == j else rnd.randint(1, 30) for j in range(n)] for i in range(n)
+        ]  # asymmetric
         brute = min(
             (
                 sum(dist[a][b] for a, b in zip((0, *order), (*order, 0)))

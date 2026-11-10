@@ -31,7 +31,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/dp_1d_grid` — dynamic programming: 1D and 2D grid
 - [x] `s1_algorithms/dp_knapsack` — knapsack (0/1 + unbounded)
 - [x] `s1_algorithms/dp_sequences` — LIS (O(n log n)), LCS, edit distance
-- [ ] `s1_algorithms/dp_interval_bitmask` — interval DP, bitmask DP
+- [x] `s1_algorithms/dp_interval_bitmask` — interval DP, bitmask DP
 - [ ] `s1_algorithms/greedy_intervals` — greedy + intervals
 - [ ] `s1_algorithms/sorting` — quick, merge, heap, counting, radix sort
 - [ ] `s1_algorithms/quickselect` — quickselect

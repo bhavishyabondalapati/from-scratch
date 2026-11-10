@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from functools import lru_cache
+from functools import cache
 
 # --- Interval DP -------------------------------------------------------------------
 # State = a contiguous range [i, j]. Solve short ranges first; a longer range is
@@ -157,7 +157,7 @@ def can_partition_k_subsets(nums: list[int], k: int) -> bool:
         return False
     n = len(nums)
 
-    @lru_cache(maxsize=None)
+    @cache
     def solve(mask: int, filled: int) -> bool:
         if mask == (1 << n) - 1:
             return True
