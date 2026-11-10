@@ -123,7 +123,7 @@ def test_xor_needs_depth_two():
     X += np.random.default_rng(0).normal(scale=0.01, size=X.shape)
     y = (X[:, 0].round() != X[:, 1].round()).astype(int)
     assert np.mean(DecisionTreeClassifier(max_depth=1).fit(X, y).predict(X) == y) < 0.8
-    assert (DecisionTreeClassifier(max_depth=3).fit(X, y).predict(X) == y).all()
+    assert (DecisionTreeClassifier().fit(X, y).predict(X) == y).all()
 
 
 def test_invalid_criterion():

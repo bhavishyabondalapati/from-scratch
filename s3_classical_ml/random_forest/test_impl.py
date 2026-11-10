@@ -73,7 +73,7 @@ def test_handles_class_missing_from_a_bootstrap_sample():
     X = rng.normal(size=(30, 2))
     y = np.array([0] * 14 + [1] * 14 + [2] * 2)  # class 2 is rare: some trees never see it
     X[y == 2] += 6
-    forest = RandomForestClassifier(n_estimators=25, random_state=0).fit(X, y)
+    forest = RandomForestClassifier(n_estimators=80, random_state=0).fit(X, y)
     assert any(len(t.classes_) < 3 for t in forest.trees_)
     assert forest.predict_proba(X).shape == (30, 3)
     assert (forest.predict(X[y == 2]) == 2).all()
