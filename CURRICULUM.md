@@ -81,7 +81,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 - [x] `s4_deep_learning/rnn_lstm_gru` — RNN, LSTM, GRU forward/backward
 - [x] `s4_deep_learning/char_lm` — character-level language model
 - [x] `s4_deep_learning/resnet_block` — ResNet block (PyTorch)
-- [ ] `s4_deep_learning/autoencoder` — autoencoder
+- [x] `s4_deep_learning/autoencoder` — autoencoder
 - [ ] `s4_deep_learning/vae` — variational autoencoder
 - [ ] `s4_deep_learning/gan` — small GAN on 2D toy data
 - [ ] `s4_deep_learning/unet` — U-Net on a synthetic segmentation task
