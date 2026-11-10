@@ -7,7 +7,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 
 ## Section 1 - Algorithms & data structures (`s1_algorithms/`)
 
-- [ ] `s1_algorithms/arrays_hashing` — arrays & hashing
+- [x] `s1_algorithms/arrays_hashing` — arrays & hashing
 - [ ] `s1_algorithms/two_pointers` — two pointers
 - [ ] `s1_algorithms/sliding_window` — sliding window
 - [ ] `s1_algorithms/prefix_sums` — prefix sums
