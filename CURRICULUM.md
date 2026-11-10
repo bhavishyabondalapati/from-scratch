@@ -35,7 +35,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/greedy_intervals` — greedy + intervals
 - [x] `s1_algorithms/sorting` — quick, merge, heap, counting, radix sort
 - [x] `s1_algorithms/quickselect` — quickselect
-- [ ] `s1_algorithms/string_matching` — KMP, Rabin-Karp
+- [x] `s1_algorithms/string_matching` — KMP, Rabin-Karp
 
 ## Section 2 - Math foundations (`s2_math/`)
 
