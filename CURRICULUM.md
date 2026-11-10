@@ -32,7 +32,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/dp_knapsack` — knapsack (0/1 + unbounded)
 - [x] `s1_algorithms/dp_sequences` — LIS (O(n log n)), LCS, edit distance
 - [x] `s1_algorithms/dp_interval_bitmask` — interval DP, bitmask DP
-- [ ] `s1_algorithms/greedy_intervals` — greedy + intervals
+- [x] `s1_algorithms/greedy_intervals` — greedy + intervals
 - [ ] `s1_algorithms/sorting` — quick, merge, heap, counting, radix sort
 - [ ] `s1_algorithms/quickselect` — quickselect
 - [ ] `s1_algorithms/string_matching` — KMP, Rabin-Karp
