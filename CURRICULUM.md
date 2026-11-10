@@ -39,7 +39,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 
 ## Section 2 - Math foundations (`s2_math/`)
 
-- [ ] `s2_math/linalg` — vector/matrix operations
+- [x] `s2_math/linalg` — vector/matrix operations
 - [ ] `s2_math/gradient_descent` — batch GD, SGD, momentum, RMSProp, Adam
 - [ ] `s2_math/gradient_check` — numerical gradient checking
 - [ ] `s2_math/softmax_logsumexp` — softmax / log-sum-exp stability
