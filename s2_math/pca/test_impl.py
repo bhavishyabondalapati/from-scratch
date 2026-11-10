@@ -52,7 +52,9 @@ def test_components_are_orthonormal_and_scores_uncorrelated(rng):
 def test_reconstruction(rng):
     X = rng.normal(size=(100, 6)) @ rng.normal(size=(6, 6))
     c, v, m = pca_svd(X, 6)
-    np.testing.assert_allclose(inverse_transform(transform(X, c, m), c, m), X, atol=1e-10)  # k = d: lossless
+    np.testing.assert_allclose(
+        inverse_transform(transform(X, c, m), c, m), X, atol=1e-10
+    )  # k = d: lossless
     errors = []
     for k in range(1, 7):
         c, v, m = pca_svd(X, k)

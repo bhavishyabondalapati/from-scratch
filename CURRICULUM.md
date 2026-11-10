@@ -43,7 +43,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [ ] `s2_math/gradient_descent` — batch GD, SGD, momentum, RMSProp, Adam
 - [x] `s2_math/gradient_check` — numerical gradient checking
 - [ ] `s2_math/softmax_logsumexp` — softmax / log-sum-exp stability
-- [ ] `s2_math/pca` — PCA via SVD and via eigendecomposition
+- [x] `s2_math/pca` — PCA via SVD and via eigendecomposition
 - [ ] `s2_math/probability` — MLE and Bayes' rule
 
 ## Section 3 - Classical ML (`s3_classical_ml/`)
