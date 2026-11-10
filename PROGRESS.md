@@ -1,7 +1,7 @@
 # Progress
 
-**Status:** Sections 1–3 complete and committed; all tests pass.
-**Resume at:** `s4_deep_learning/autograd_scalar` (first unticked box in `CURRICULUM.md`).
+**Status:** Sections 1–4 complete and committed; all tests pass (slow ones included).
+**Resume at:** `s5_nlp/tokenization` (first unticked box in `CURRICULUM.md`).
 
 ## How to resume
 1. `conda activate from-scratch`
@@ -18,3 +18,6 @@
 - Section 4: NumPy only until both autograd engines exist; PyTorch allowed from
   `resnet_block` on. Every DL item saves a training-curve PNG and states the final metric in NOTES.md.
 - Mark training tests that take more than a few seconds with `@pytest.mark.slow`.
+- Section 4 added `s4_deep_learning/torch_utils.py` (device selection, digits tensors, curve
+  plotting) and `data_utils.py` (cached tiny-shakespeare download into the gitignored `data/`).
+- Apple `mps` is ~20x faster than CPU for the conv nets; slow tests use `get_device()`.
