@@ -79,14 +79,15 @@ def test_lasso_recovers_sparse_truth_and_ignores_noise_features(rng):
     np.testing.assert_allclose(model.coef_[[2, 11, 25]], [4.0, -3.0, 2.0], atol=0.2)
 
 
-def test_ridge_helps_when_features_outnumber_samples(rng):
-    X = rng.normal(size=(30, 100))
-    w = rng.normal(size=100)
-    y = X @ w + rng.normal(size=30)
-    X_test = rng.normal(size=(500, 100))
+def test_ridge_beats_least_squares_when_samples_are_scarce(rng):
+    # With n barely above d, least squares fits the noise and its weights blow up.
+    n, d = 55, 50
+    w = rng.normal(size=d)
+    X, X_test = rng.normal(size=(n, d)), rng.normal(size=(2000, d))
+    y = X @ w + 2.0 * rng.normal(size=n)
     y_test = X_test @ w
-    ols = Ridge(1e-8).fit(X, y)  # effectively unregularised: interpolates the training set
-    ridge = Ridge(10.0).fit(X, y)
-    assert np.mean((ridge.predict(X_test) - y_test) ** 2) < np.mean(
-        (ols.predict(X_test) - y_test) ** 2
-    )
+
+    def test_error(alpha):
+        return np.mean((Ridge(alpha).fit(X, y).predict(X_test) - y_test) ** 2)
+
+    assert test_error(10.0) < 0.5 * test_error(1e-8)

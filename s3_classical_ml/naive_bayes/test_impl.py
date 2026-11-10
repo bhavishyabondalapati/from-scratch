@@ -49,7 +49,7 @@ def test_tiny_spam_example_by_hand():
     np.testing.assert_allclose(np.exp(model.feature_log_prob_[0]), [1 / 7, 2 / 7, 4 / 7])
     # "free money": P(spam) ∝ 0.5 * (4/9)^2,  P(ham) ∝ 0.5 * (1/7)(2/7)
     spam, ham = 0.5 * (4 / 9) ** 2, 0.5 * (1 / 7) * (2 / 7)
-    np.testing.assert_allclose(model.predict_proba([[1, 1, 0]])[0], [ham, spam] / (spam + ham))
+    np.testing.assert_allclose(model.predict_proba([[1, 1, 0]])[0], np.array([ham, spam]) / (spam + ham))
     assert list(model.predict([[1, 1, 0], [0, 0, 3]])) == [1, 0]
 
 
