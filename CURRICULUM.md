@@ -55,7 +55,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s3_classical_ml/naive_bayes` — Gaussian + multinomial
 - [x] `s3_classical_ml/decision_tree` — CART with gini + entropy
 - [x] `s3_classical_ml/random_forest` — random forest
-- [ ] `s3_classical_ml/gradient_boosting` — regression + classification
+- [x] `s3_classical_ml/gradient_boosting` — regression + classification
 - [x] `s3_classical_ml/adaboost` — AdaBoost
 - [x] `s3_classical_ml/svm` — SVM (subgradient + SMO with kernels)
 - [ ] `s3_classical_ml/kmeans` — k-means and k-means++
