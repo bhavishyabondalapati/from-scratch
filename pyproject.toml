@@ -1,0 +1,15 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["s1_algorithms", "s2_math", "s3_classical_ml", "s4_deep_learning", "s5_nlp", "s6_rl"]
+markers = ["slow: trains a model for more than a few seconds (skipped in CI)"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+# E741: math code uses l, I, O as names; E501: long comment lines are fine;
+# B905: zip() without strict= is fine for teaching code.
+ignore = ["E741", "E501", "B905", "B028"]
