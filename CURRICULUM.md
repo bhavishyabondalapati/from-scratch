@@ -95,7 +95,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 - [x] `s5_nlp/word2vec` — skip-gram with negative sampling, cosine similarity + analogy test
 - [x] `s5_nlp/glove` — GloVe (small)
 - [x] `s5_nlp/attention` — scaled dot-product + multi-head attention
-- [ ] `s5_nlp/positional_encoding` — sinusoidal + RoPE
+- [x] `s5_nlp/positional_encoding` — sinusoidal + RoPE
 - [ ] `s5_nlp/seq2seq_attention` — seq2seq with Bahdanau attention
 - [ ] `s5_nlp/gpt` — decoder-only transformer on tiny-shakespeare, KV cache, sampling
 - [ ] `s5_nlp/bert_classifier` — tiny BERT-style encoder for sentiment

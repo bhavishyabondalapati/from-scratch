@@ -11,10 +11,14 @@ def test_sinusoidal_matches_formula_and_has_unit_pairs():
     pe = sinusoidal_encoding(50, 16)
     pos, i = 7, 3
     assert pe[pos, 2 * i].item() == pytest.approx(math.sin(pos / 10000 ** (2 * i / 16)), abs=1e-6)
-    assert pe[pos, 2 * i + 1].item() == pytest.approx(math.cos(pos / 10000 ** (2 * i / 16)), abs=1e-6)
+    assert pe[pos, 2 * i + 1].item() == pytest.approx(
+        math.cos(pos / 10000 ** (2 * i / 16)), abs=1e-6
+    )
     pair_norms = pe[:, 0::2] ** 2 + pe[:, 1::2] ** 2
     torch.testing.assert_close(pair_norms, torch.ones_like(pair_norms))
-    assert torch.allclose(pe[0, 0::2], torch.zeros(8)) and torch.allclose(pe[0, 1::2], torch.ones(8))
+    assert torch.allclose(pe[0, 0::2], torch.zeros(8)) and torch.allclose(
+        pe[0, 1::2], torch.ones(8)
+    )
     w = wavelengths(16)
     assert w[0].item() == pytest.approx(2 * math.pi) and torch.all(w[1:] > w[:-1])
 
@@ -27,8 +31,11 @@ def test_sinusoidal_shift_is_a_linear_map():
     R = torch.zeros(d, d, dtype=torch.float64)
     for j, f in enumerate(freqs):
         c, s = math.cos(k * f), math.sin(k * f)
-        R[2 * j : 2 * j + 2, 2 * j : 2 * j + 2] = torch.tensor([[c, s], [-s, c]], dtype=torch.float64)
-    torch.testing.assert_close(pe[k:] , pe[:-k] @ R, atol=1e-5, rtol=0)
+        R[2 * j : 2 * j + 2, 2 * j : 2 * j + 2] = torch.tensor(
+            [[c, -s], [s, c]],
+            dtype=torch.float64,  # (sin a, cos a) -> (sin(a+b), cos(a+b))
+        )
+    torch.testing.assert_close(pe[k:], pe[:-k] @ R, atol=1e-5, rtol=0)
 
 
 def test_nearby_positions_are_more_similar():
@@ -41,9 +48,14 @@ def test_rope_matches_complex_number_reference():
     torch.manual_seed(0)
     x = torch.randn(2, 3, 10, 8)
     cos, sin = rope_frequencies(8, 64)
-    torch.testing.assert_close(apply_rope(x, cos, sin), rope_as_complex(x, torch.arange(10)), atol=1e-5, rtol=1e-5)
     torch.testing.assert_close(
-        apply_rope(x, cos, sin, offset=20), rope_as_complex(x, torch.arange(20, 30)), atol=1e-5, rtol=1e-5
+        apply_rope(x, cos, sin), rope_as_complex(x, torch.arange(10)), atol=1e-5, rtol=1e-5
+    )
+    torch.testing.assert_close(
+        apply_rope(x, cos, sin, offset=20),
+        rope_as_complex(x, torch.arange(20, 30)),
+        atol=1e-5,
+        rtol=1e-5,
     )
 
 
@@ -68,7 +80,11 @@ def test_rope_scores_depend_only_on_relative_position():
         return float(qm @ kn)
 
     assert score(5, 2) == pytest.approx(score(50, 47), abs=1e-4)  # both offset 3
-    assert score(10, 10) == pytest.approx(score(0, 0), abs=1e-4) == pytest.approx(float(q @ k), abs=1e-4)
+    assert (
+        score(10, 10)
+        == pytest.approx(score(0, 0), abs=1e-4)
+        == pytest.approx(float(q @ k), abs=1e-4)
+    )
     assert score(5, 2) != pytest.approx(score(5, 4), abs=1e-3)
     with pytest.raises(ValueError):
         rope_frequencies(7, 10)

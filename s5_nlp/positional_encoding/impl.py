@@ -22,7 +22,9 @@ def sinusoidal_encoding(max_len: int, d_model: int, base: float = 10000.0) -> to
     return pe.float()
 
 
-def rope_frequencies(d_head: int, max_len: int, base: float = 10000.0) -> tuple[torch.Tensor, torch.Tensor]:
+def rope_frequencies(
+    d_head: int, max_len: int, base: float = 10000.0
+) -> tuple[torch.Tensor, torch.Tensor]:
     """cos and sin tables of shape (max_len, d_head // 2) for rotary embeddings."""
     if d_head % 2:
         raise ValueError("RoPE needs an even head dimension")
@@ -31,7 +33,9 @@ def rope_frequencies(d_head: int, max_len: int, base: float = 10000.0) -> tuple[
     return torch.cos(angles).float(), torch.sin(angles).float()
 
 
-def apply_rope(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, offset: int = 0) -> torch.Tensor:
+def apply_rope(
+    x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, offset: int = 0
+) -> torch.Tensor:
     """Rotate each consecutive pair (x[2i], x[2i+1]) of a query/key vector by angle pos * theta_i.
 
     x: (..., T, d_head). Applied to queries AND keys (not values). Because a
@@ -48,12 +52,17 @@ def apply_rope(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor, offset: in
     return out
 
 
-def rope_as_complex(x: torch.Tensor, positions: torch.Tensor, base: float = 10000.0) -> torch.Tensor:
+def rope_as_complex(
+    x: torch.Tensor, positions: torch.Tensor, base: float = 10000.0
+) -> torch.Tensor:
     """Reference: the same rotation written as multiplying complex numbers by e^{i pos theta}."""
     d = x.shape[-1]
     inv_freq = base ** (-torch.arange(0, d, 2, dtype=torch.float64) / d)
     z = torch.complex(x[..., 0::2].double(), x[..., 1::2].double())
-    rot = torch.polar(torch.ones(len(positions), d // 2, dtype=torch.float64), positions[:, None].double() * inv_freq)
+    rot = torch.polar(
+        torch.ones(len(positions), d // 2, dtype=torch.float64),
+        positions[:, None].double() * inv_freq,
+    )
     out = z * rot
     return torch.stack([out.real, out.imag], dim=-1).flatten(-2).to(x.dtype)
 
