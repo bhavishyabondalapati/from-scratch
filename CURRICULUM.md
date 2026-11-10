@@ -51,7 +51,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s3_classical_ml/linear_regression` — closed form + gradient descent
 - [ ] `s3_classical_ml/ridge_lasso` — ridge, lasso (coordinate descent)
 - [x] `s3_classical_ml/logistic_regression` — binary + multinomial
-- [ ] `s3_classical_ml/knn` — k-nearest neighbours
+- [x] `s3_classical_ml/knn` — k-nearest neighbours
 - [ ] `s3_classical_ml/naive_bayes` — Gaussian + multinomial
 - [ ] `s3_classical_ml/decision_tree` — CART with gini + entropy
 - [ ] `s3_classical_ml/random_forest` — random forest
