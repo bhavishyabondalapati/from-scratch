@@ -12,7 +12,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/sliding_window` — sliding window
 - [x] `s1_algorithms/prefix_sums` — prefix sums
 - [x] `s1_algorithms/binary_search` — binary search, incl. on the answer space
-- [ ] `s1_algorithms/stack_monotonic` — stack & monotonic stack
+- [x] `s1_algorithms/stack_monotonic` — stack & monotonic stack
 - [ ] `s1_algorithms/queue_deque` — queue, deque, monotonic queue
 - [ ] `s1_algorithms/linked_list` — linked list operations
 - [ ] `s1_algorithms/lru_cache` — LRU cache

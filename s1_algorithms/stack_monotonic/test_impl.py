@@ -53,8 +53,12 @@ def test_next_greater_and_daily_temperatures_against_brute_force():
     for _ in range(300):
         nums = [rnd.randint(0, 9) for _ in range(rnd.randint(0, 15))]
         n = len(nums)
-        expected_val = [next((nums[j] for j in range(i + 1, n) if nums[j] > nums[i]), -1) for i in range(n)]
-        expected_gap = [next((j - i for j in range(i + 1, n) if nums[j] > nums[i]), 0) for i in range(n)]
+        expected_val = [
+            next((nums[j] for j in range(i + 1, n) if nums[j] > nums[i]), -1) for i in range(n)
+        ]
+        expected_gap = [
+            next((j - i for j in range(i + 1, n) if nums[j] > nums[i]), 0) for i in range(n)
+        ]
         assert next_greater_element(nums) == expected_val
         assert daily_temperatures(nums) == expected_gap
 
