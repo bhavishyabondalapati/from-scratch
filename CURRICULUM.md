@@ -93,7 +93,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 - [x] `s5_nlp/bow_tfidf` — bag-of-words, TF-IDF
 - [x] `s5_nlp/ngram_lm` — n-gram language model with smoothing, perplexity
 - [x] `s5_nlp/word2vec` — skip-gram with negative sampling, cosine similarity + analogy test
-- [ ] `s5_nlp/glove` — GloVe (small)
+- [x] `s5_nlp/glove` — GloVe (small)
 - [ ] `s5_nlp/attention` — scaled dot-product + multi-head attention
 - [ ] `s5_nlp/positional_encoding` — sinusoidal + RoPE
 - [ ] `s5_nlp/seq2seq_attention` — seq2seq with Bahdanau attention
