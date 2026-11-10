@@ -63,3 +63,9 @@ def test_retrieval_on_the_repository_notes():
     assert mrr > 0.6 and r10 > 0.8  # random ranking would give MRR around 1/n_topics
     assert mrr > tfidf_mrr
     assert 1 / n_topics < 0.05
+    from pathlib import Path
+
+    (Path(__file__).parent / "results.txt").write_text(
+        f"passages: {len(passages)} from {n_topics} topics, held-out questions: {len(queries)}\n"
+        f"MRR@10 BM25 {mrr:.3f}, TF-IDF {tfidf_mrr:.3f}; relevant passage in top 10: {r10:.3f}\n"
+    )

@@ -1,0 +1,2 @@
+passages: 432 from 86 topics, held-out questions: 430
+MRR@10 BM25 0.692, TF-IDF 0.624; relevant passage in top 10: 0.893

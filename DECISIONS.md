@@ -51,5 +51,8 @@ Choices made while building the repo, and why.
   are known exactly.
 - Sentiment (`bert_classifier`): generated reviews whose labels depend on negation and "but"
   clauses, so word order matters and bag-of-words is a meaningful baseline.
-- Retrieval and RAG: the repository's own NOTES.md files, split into sections.
+- Retrieval and RAG: the repository's own NOTES.md files, split into sections, frozen in
+  `s5_nlp/corpus_snapshot.json`. Without the snapshot, editing any note (including the notes that
+  report retrieval numbers) changed the corpus and the reported metrics. Regenerate with
+  `python -m s5_nlp.corpus`.
 - tiny-shakespeare is the only download (cached in the gitignored `data/` folder).

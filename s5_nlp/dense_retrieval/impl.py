@@ -152,3 +152,13 @@ class IVFIndex:
 def recall_vs_exact(approx: np.ndarray, exact: np.ndarray) -> float:
     """Fraction of the exact top-k neighbours that the approximate search also returned."""
     return float(np.mean([len(set(a) & set(e)) / len(e) for a, e in zip(approx, exact)]))
+
+
+def reciprocal_rank_fusion(rankings: list[list], k: int = 60) -> list:
+    """Hybrid search: combine several ranked lists by summing 1 / (k + rank).
+    Items ranked highly by any retriever float to the top; k damps the head."""
+    scores: dict = {}
+    for ranking in rankings:
+        for rank, item in enumerate(ranking):
+            scores[item] = scores.get(item, 0.0) + 1.0 / (k + rank + 1)
+    return sorted(scores, key=lambda item: -scores[item])

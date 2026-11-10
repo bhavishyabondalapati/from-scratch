@@ -1,6 +1,7 @@
 # Minimal RAG loop with an offline extractive answerer
 
-**Setup:** the corpus is this repository's NOTES.md files (section passages). The ~410 interview
+**Setup:** the corpus is this repository's NOTES.md files (section passages), frozen in
+`s5_nlp/corpus_snapshot.json` so the numbers are reproducible. The 430 interview
 questions are **held out** of the index and their written answers are the references. Pipeline: BM25
 top-5 passages → score every sentence by idf-weighted overlap with the question plus a bonus for its
 passage's rank → return the best sentence **with a citation**. No language model, no API.
@@ -9,11 +10,11 @@ passage's rank → return the best sentence **with a citation**. No language mod
 
 | | ROUGE-L F vs reference answer |
 |---|---|
-| random corpus sentence | 0.012 |
-| first sentence of the top retrieved passage | 0.056 |
-| **RAG sentence selection** | **0.098** (token F1 0.10) |
+| random corpus sentence | 0.011 |
+| first sentence of the top retrieved passage | 0.055 |
+| **RAG sentence selection** | **0.099** (token F1 0.10) |
 
-The cited passage comes from the question's own topic for **57%** of questions, which is essentially the
+The cited passage comes from the question's own topic for **58%** of questions, which is essentially the
 retriever's ceiling: with BM25 the top-1 passage is from the right topic about 58% of the time, and no
 re-weighting of the answerer moved it.
 

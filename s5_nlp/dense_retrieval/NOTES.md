@@ -14,17 +14,26 @@
 **Embedding model:** a dual encoder (mean of learned word embeddings → linear → unit vector, 128-d)
 trained from scratch for 1,500 steps with InfoNCE and in-batch negatives on self-supervised pairs
 from the notes corpus (a sentence of a passage ↔ another passage of the same topic; no queries used).
-On the 405 held-out interview questions (see `results.txt`), MRR@10:
+On the 430 held-out interview questions over 432 passages of the frozen corpus snapshot (numbers from
+[`results.txt`](results.txt), written by the slow test), MRR@10:
 
 | | MRR@10 |
 |---|---|
-| untrained encoder (random embeddings, averaged) | 0.28 |
+| untrained encoder (random embeddings, averaged) | 0.30 |
 | **trained dual encoder** | **0.40** |
 | BM25 (`s5_nlp/bm25`) | **0.69** |
-| reciprocal-rank fusion of BM25 + dense | 0.61 |
+| reciprocal-rank fusion of BM25 + dense (top 50 each, k = 60) | 0.55 |
+
+**Why this number has moved:** the corpus is the repository's own notes, so it changed as topics were
+added. The trained encoder's MRR was 0.33 when first measured (401 passages; 400 training steps,
+64-d), 0.40 after tuning to 1,500 steps and 128-d (406 passages), and drifted between 0.40 and 0.42 as
+later notes (including this file) were written. The evaluation now uses a frozen snapshot of the notes,
+[`s5_nlp/corpus_snapshot.json`](../corpus_snapshot.json) (432 passages, 430 questions), so the 0.40 above
+is reproducible; regenerate it deliberately with `python -m s5_nlp.corpus`. The conclusion never
+changed: training helps, and BM25 stays far ahead.
 
 **Honest finding:** training helps, but a dense model learned from ~400 passages is far behind BM25,
-and fusing it in hurts. Its training loss goes to ~0: it memorises the 80 topics rather than learning
+and fusing it in hurts. Its training loss goes to ~0: it memorises the 86 topics rather than learning
 general meaning. Dense retrieval wins when the encoder is **pre-trained on huge corpora** (e.g.
 sentence-transformers, E5) and tested on paraphrased queries. Here the questions share many exact
 terms with the notes, which suits BM25.

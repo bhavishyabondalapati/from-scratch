@@ -1,5 +1,10 @@
 """A local, offline text corpus for the retrieval topics: this repository's own NOTES.md files.
 
+The retrieval topics evaluate on a FROZEN snapshot (corpus_snapshot.json) so their reported
+numbers are reproducible: otherwise every edit to any NOTES.md (including the notes that report
+the numbers) would change the corpus. Regenerate deliberately with
+    python -m s5_nlp.corpus
+
 Every NOTES.md is split into passages at its "## " headings. The "Interview questions"
 sections are held out: each question becomes an evaluation query whose relevant
 passages are the other sections of the same topic folder.
@@ -7,11 +12,13 @@ passages are the other sections of the same topic folder.
 
 from __future__ import annotations
 
+import json
 import re
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SNAPSHOT = Path(__file__).with_name("corpus_snapshot.json")
 SECTION_DIRS = [
     "s1_algorithms",
     "s2_math",
@@ -41,7 +48,8 @@ def _slug(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
 
-def load_corpus(root: Path = ROOT) -> tuple[list[Passage], list[Query]]:
+def build_corpus(root: Path = ROOT) -> tuple[list[Passage], list[Query]]:
+    """Parse the NOTES.md files as they are right now."""
     passages, queries = [], []
     for section in SECTION_DIRS:
         for notes in sorted((root / section).glob("*/NOTES.md")):
@@ -65,5 +73,24 @@ def load_corpus(root: Path = ROOT) -> tuple[list[Passage], list[Query]]:
     return passages, queries
 
 
+def load_corpus() -> tuple[list[Passage], list[Query]]:
+    """The frozen evaluation corpus (falls back to the live notes if no snapshot exists)."""
+    if not SNAPSHOT.exists():
+        return build_corpus()
+    data = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
+    return [Passage(**p) for p in data["passages"]], [Query(**q) for q in data["queries"]]
+
+
+def write_snapshot() -> None:
+    passages, queries = build_corpus()
+    data = {"passages": [asdict(p) for p in passages], "queries": [asdict(q) for q in queries]}
+    SNAPSHOT.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"wrote {SNAPSHOT.name}: {len(passages)} passages, {len(queries)} queries")
+
+
 def relevant_ids(passages: list[Passage], query: Query) -> set[str]:
     return {p.pid for p in passages if p.topic == query.topic}
+
+
+if __name__ == "__main__":
+    write_snapshot()

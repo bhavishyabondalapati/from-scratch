@@ -1,9 +1,10 @@
 # BM25
 
-**Final metric:** on this repository's own notes (401 section passages from 80 topics; the 400
+**Final metric:** on this repository's own notes (432 section passages from 86 topics; the 430
 interview questions are held out as queries, and a passage counts as relevant if it comes from the
-question's topic): **BM25 MRR 0.69**, with a relevant passage in the top 10 for **90%** of questions.
-TF-IDF cosine similarity gets MRR 0.63; random ranking would be about 0.01–0.02. Tuning k1/b barely
+question's topic): **BM25 MRR 0.69**, with a relevant passage in the top 10 for **89%** of questions
+(numbers from [`results.txt`](results.txt), on the frozen corpus snapshot `s5_nlp/corpus_snapshot.json`).
+TF-IDF cosine similarity gets MRR 0.62; random ranking would be about 0.01–0.02. Tuning k1/b barely
 matters here (0.69–0.70). Corpus loader: [`s5_nlp/corpus.py`](../corpus.py).
 
 ## Intuition
