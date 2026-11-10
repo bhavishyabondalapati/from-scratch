@@ -28,7 +28,7 @@ To resume work: find the first unticked box below, and read `PROGRESS.md` if it 
 - [x] `s1_algorithms/minimum_spanning_tree` — Prim, Kruskal
 - [x] `s1_algorithms/tarjan_scc` — Tarjan strongly connected components
 - [x] `s1_algorithms/backtracking` — subsets, permutations, combinations, N-Queens, sudoku
-- [ ] `s1_algorithms/dp_1d_grid` — dynamic programming: 1D and 2D grid
+- [x] `s1_algorithms/dp_1d_grid` — dynamic programming: 1D and 2D grid
 - [ ] `s1_algorithms/dp_knapsack` — knapsack (0/1 + unbounded)
 - [ ] `s1_algorithms/dp_sequences` — LIS (O(n log n)), LCS, edit distance
 - [ ] `s1_algorithms/dp_interval_bitmask` — interval DP, bitmask DP
