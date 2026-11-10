@@ -109,7 +109,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 
 - [x] `s6_rl/bandits` — epsilon-greedy, UCB, Thompson sampling
 - [x] `s6_rl/dynamic_programming` — value iteration, policy iteration
-- [ ] `s6_rl/td_learning` — Q-learning, SARSA on a gridworld
+- [x] `s6_rl/td_learning` — Q-learning, SARSA on a gridworld
 
 ## Finish
 
