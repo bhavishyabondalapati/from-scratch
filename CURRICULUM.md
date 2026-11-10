@@ -90,7 +90,7 @@ NumPy only until the autograd engines are built; PyTorch allowed from `resnet_bl
 ## Section 5 - NLP (`s5_nlp/`)
 
 - [x] `s5_nlp/tokenization` — whitespace/regex, BPE from scratch, WordPiece overview
-- [ ] `s5_nlp/bow_tfidf` — bag-of-words, TF-IDF
+- [x] `s5_nlp/bow_tfidf` — bag-of-words, TF-IDF
 - [ ] `s5_nlp/ngram_lm` — n-gram language model with smoothing, perplexity
 - [ ] `s5_nlp/word2vec` — skip-gram with negative sampling, cosine similarity + analogy test
 - [ ] `s5_nlp/glove` — GloVe (small)
